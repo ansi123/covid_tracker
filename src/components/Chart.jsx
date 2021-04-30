@@ -1,31 +1,47 @@
 import React, { Component } from "react";
-import { Pie } from "react-chartjs-2";
+import { Line, Pie } from "react-chartjs-2";
 class Chart extends Component {
   render() {
     const { countries } = this.props;
     //   console.table(countries);
-    if(countries.length===0)
-    {
-        return <div></div>;
+    if (countries.length === 0) {
+      return <div></div>;
     }
     const data = {
       labels: countries.map((x) => x.name),
+      label: countries.map((x) => x.name),
+
       datasets: [
         {
+          // label: countries.map((country) => country.name),
+          label: "Covid-19 Cases",
           data: countries.map((country) => country.total),
           backgroundColor: colors,
+          //   label: countries.map((x) => x.name),
         },
       ],
     };
 
     return (
       <div>
-        <Pie
+        <Line
           data={data}
-          width={100}
+          width={200}
           height={200}
-          options={{ maintainAspectRatio: false }}
-        ></Pie>
+          //   options={{ maintainAspectRatio: false }}
+          options={{
+            maintainAspectRatio: false,
+            title: {
+              display: true,
+              text: "Covid-19 Cases analysis using Line graph",
+            //   fontSize: 20,
+            },
+            legend: {
+              display: true,
+              position: "right",
+            },
+          }}
+        ></Line>
       </div>
     );
   }
